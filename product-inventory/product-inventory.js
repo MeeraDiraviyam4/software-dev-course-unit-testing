@@ -5,16 +5,23 @@ function calculateDiscount(price, discountRate) {
     return price * (1 - discountRate);
 }
 
-/*function filterProducts(products, callback) {
+function filterProducts(products, callback) {
     if (!Array.isArray(products) || typeof callback !== 'function') return [];
     // TODO: Implement filtering logic
-    return [];
+const filtered = [];
+  for (let i = 0; i < products.length; i++) {
+    if (callback(products[i])) {
+      filtered.push(products[i]);
+    }
+  }
+  return filtered;
 }
 
-function sortInventory(inventory, key) {
+
+/*function sortInventory(inventory, key) {
     if (!Array.isArray(inventory) || typeof key !== 'string') return [];
     // TODO: Implement sorting logic
     return [];
 }*/
 
-module.exports = {calculateDiscount};
+module.exports = {calculateDiscount, filterProducts,};
