@@ -57,3 +57,41 @@ test("handles array with one matching item", () => {
   expect(result).toHaveLength(1);
   expect(result[0].name).toBe("X-box");
 });
+
+// Sort Inventory
+
+const sampleInventory = [
+  { name: "Mouse", price: 20, quantity: 50 },
+  { name: "Keyboard", price: 40, quantity: 30 },
+  { name: "Monitor", price: 150, quantity: 10 },
+];
+
+test("sorts inventory by price ascending", () => {
+  const result = sortInventory(sampleInventory, "price");
+  expect(result[0].price).toBe(20);
+  expect(result[1].price).toBe(40);
+  expect(result[2].price).toBe(150);
+});
+
+test("sorts inventory by name alphabetically", () => {
+  const result = sortInventory(sampleInventory, "name");
+  expect(result.map((item) => item.name)).toEqual([
+    "Keyboard",
+    "Monitor",
+    "Mouse",
+  ]);
+});
+
+test("does not mutate original inventory", () => {
+  const copyBefore = [...sampleInventory];
+  sortInventory(sampleInventory, "price");
+  expect(sampleInventory).toEqual(copyBefore);
+});
+
+test("returns empty array for invalid inventory input", () => {
+  expect(sortInventory("not an array", "price")).toEqual([]);
+});
+
+test("returns empty array for invalid key input", () => {
+  expect(sortInventory(sampleInventory, 123)).toEqual([]);
+});

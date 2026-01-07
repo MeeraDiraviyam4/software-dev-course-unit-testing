@@ -18,10 +18,26 @@ const filtered = [];
 }
 
 
-/*function sortInventory(inventory, key) {
+function sortInventory(inventory, key) {
     if (!Array.isArray(inventory) || typeof key !== 'string') return [];
-    // TODO: Implement sorting logic
-    return [];
-}*/
+    const sorted = [...inventory];
 
-module.exports = {calculateDiscount, filterProducts,};
+  sorted.sort((a, b) => {
+    const valA = a[key];
+    const valB = b[key];
+
+    // Handle undefined values by pushing them to the end
+    if (valA === undefined && valB === undefined) return 0;
+    if (valA === undefined) return 1;
+    if (valB === undefined) return -1;
+
+    if (valA < valB) return -1;
+    if (valA > valB) return 1;
+    return 0;
+  });
+
+  return sorted;
+}
+
+module.exports = {calculateDiscount, filterProducts, sortInventory,};
+
